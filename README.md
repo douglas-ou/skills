@@ -2,6 +2,21 @@
 
 Agent skills I use to align on requirements before a single line of code gets written.
 
+## Install
+
+```bash
+# List available skills
+npx skills add douglas-ou/skills --list
+
+# Install a specific skill
+npx skills add douglas-ou/skills --skill by-usecase
+
+# Install all skills
+npx skills add douglas-ou/skills --all
+```
+
+Requires Node.js for `npx`. After install, the skill is picked up automatically by your agent (Claude Code, Cursor, Codex, …).
+
 ## Why This Skill Exists
 
 Too many technical questions. I'd rather the agent ask me in user scenarios — they're just easier to understand.
@@ -36,20 +51,6 @@ Full details in [`skills/by-usecase/SKILL.md`](./skills/by-usecase/SKILL.md).
 |-------|-------------|
 | [`by-usecase`](./skills/by-usecase) | Scenario-driven requirements interview. Asks in **user scenarios, not technical jargon** — then derives the technical design from their answers. |
 
-## Install
-
-```bash
-# List available skills
-npx skills add douglas-ou/skills --list
-
-# Install a specific skill
-npx skills add douglas-ou/skills --skill by-usecase
-
-# Install all skills
-npx skills add douglas-ou/skills --all
-```
-
-Requires Node.js for `npx`. After install, the skill is picked up automatically by your agent (Claude Code, Cursor, Codex, …).
 
 ## Layout
 
