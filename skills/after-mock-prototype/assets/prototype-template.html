@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en" data-prototype-role="__PROTOTYPE_ROLE__">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>__PAGE_TITLE__</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: __FONT_FAMILY__;
+      background: __PAGE_BACKGROUND__;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body, #root { width: 100%; min-height: 100%; margin: 0; }
+    body { min-height: 100vh; background: __PAGE_BACKGROUND__; }
+
+    __EXTRACTED_PROJECT_CSS__
+  </style>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script id="prototype-config" type="application/json">
+__PROTOTYPE_CONFIG_JSON__
+  </script>
+
+  <script type="text/babel" data-presets="env,react">
+    const prototypeConfig = JSON.parse(
+      document.getElementById("prototype-config").textContent
+    );
+
+    const firstOrUndefined = (values) =>
+      Array.isArray(values) && values.length ? values[0] : undefined;
+
+    function readPrototypeParameters() {
+      const query = new URLSearchParams(window.location.search);
+      const select = (name, values) => {
+        if (!Array.isArray(values) || values.length === 0) return undefined;
+        const requested = query.get(name);
+        return values.includes(requested) ? requested : values[0];
+      };
+
+      return {
+        scene: select("scene", prototypeConfig.scenes),
+        theme: select("theme", prototypeConfig.themes),
+        lang: select("lang", prototypeConfig.langs),
+      };
+    }
+
+    function applyDocumentParameters(parameters) {
+      const root = document.documentElement;
+      root.dataset.scene = parameters.scene || "";
+
+      if (parameters.theme) {
+        root.dataset.theme = parameters.theme;
+        root.classList.toggle("dark", parameters.theme === "dark");
+      } else {
+        delete root.dataset.theme;
+        root.classList.remove("dark");
+      }
+
+      if (parameters.lang) {
+        root.lang = parameters.lang;
+        root.dataset.lang = parameters.lang;
+      } else {
+        delete root.dataset.lang;
+      }
+    }
+
+    const initialParameters = readPrototypeParameters();
+    applyDocumentParameters(initialParameters);
+
+    window.PrototypeRuntime = Object.freeze({
+      config: prototypeConfig,
+      initialParameters,
+      readParameters: readPrototypeParameters,
+      defaults: {
+        scene: firstOrUndefined(prototypeConfig.scenes),
+        theme: firstOrUndefined(prototypeConfig.themes),
+        lang: firstOrUndefined(prototypeConfig.langs),
+      },
+    });
+
+    function PrototypeApp() {
+      const [parameters, setParameters] = React.useState(initialParameters);
+
+      React.useEffect(() => {
+        const refresh = () => {
+          const next = readPrototypeParameters();
+          applyDocumentParameters(next);
+          setParameters(next);
+        };
+
+        window.addEventListener("popstate", refresh);
+        return () => window.removeEventListener("popstate", refresh);
+      }, []);
+
+      __PROTOTYPE_APP_JSX__
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<PrototypeApp />);
+  </script>
+</body>
+</html>

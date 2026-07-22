@@ -1,0 +1,4 @@
+interface:
+  display_name: "After Mock Prototype"
+  short_description: "Build source-traced Before/After review prototypes"
+  default_prompt: "Use $after-mock-prototype to turn this user flow into a source-faithful Before/After review prototype."
