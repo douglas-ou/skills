@@ -1,5 +1,5 @@
 ---
-name: after-mock-prototype
+name: AB-prototype
 description: Create source-faithful, high-fidelity Before/After review mocks for one user flow by inspecting an existing repository, its rendered DOM, and its real CSS. Use when the user asks for a high-fidelity mock, a Before/After prototype, a redesign based on source styles, 按源码样式制作改版稿, 高保真 mock, before/after 原型, or wants to adjust an After mock and review multiple states. Generate a standalone review bundle without changing production code.
 ---
 

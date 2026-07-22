@@ -1,0 +1,4 @@
+interface:
+  display_name: "AB Prototype"
+  short_description: "Build source-traced Before/After review prototypes"
+  default_prompt: "Use $AB-prototype to turn this user flow into a source-faithful Before/After review prototype."

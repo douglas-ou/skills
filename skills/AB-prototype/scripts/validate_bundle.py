@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate an after-mock-prototype review bundle using only the stdlib."""
+"""Validate an AB-prototype review bundle using only the stdlib."""
 
 from __future__ import annotations
 
@@ -747,7 +747,7 @@ def main(argv: list[str] | None = None) -> int:
         for error in errors:
             print(f"- {error}")
     else:
-        print(f"PASS: valid after-mock-prototype bundle at {validator.bundle}")
+        print(f"PASS: valid AB-prototype bundle at {validator.bundle}")
     return 1 if errors else 0
 
 
